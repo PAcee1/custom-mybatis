@@ -3,6 +3,7 @@ package com.enbuys.executor;
 import com.enbuys.pojo.Configuration;
 import com.enbuys.pojo.MappedStatement;
 
+import java.sql.SQLException;
 import java.util.List;
 
 /**
@@ -13,5 +14,5 @@ import java.util.List;
  * @date 2020/4/11 18:14
  */
 public interface Executor {
-    <T> List<T> query(Configuration configuration, MappedStatement mappedStatement,Object... objects);
+    <T> List<T> query(Configuration configuration, MappedStatement mappedStatement,Object... objects) throws Exception;
 }

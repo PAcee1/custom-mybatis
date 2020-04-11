@@ -18,7 +18,7 @@ public interface SqlSession {
      * @param <T>
      * @return
      */
-    <T> List<T> selectList(String statementId,Object... objects);
+    <T> List<T> selectList(String statementId,Object... objects) throws Exception;
 
     /**
      * 查询单条记录，需要传入id和参数们
@@ -27,5 +27,5 @@ public interface SqlSession {
      * @param <E>
      * @return
      */
-    <E> E selectOne(String statementId,Object... objects);
+    <E> E selectOne(String statementId,Object... objects) throws Exception;
 }

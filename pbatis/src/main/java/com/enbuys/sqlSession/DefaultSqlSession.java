@@ -23,7 +23,7 @@ public class DefaultSqlSession implements SqlSession {
     }
 
     @Override
-    public <T> List<T> selectList(String statementId,Object... objects) {
+    public <T> List<T> selectList(String statementId,Object... objects) throws Exception {
         // 首先拿到具体的映射对象
         MappedStatement mappedStatement = configuration.getMappedStatementMap().get(statementId);
 
@@ -34,7 +34,7 @@ public class DefaultSqlSession implements SqlSession {
     }
 
     @Override
-    public <E> E selectOne(String statementId, Object... objects) {
+    public <E> E selectOne(String statementId, Object... objects) throws Exception {
         // 直接使用selectList方法即可
         List<Object> list = selectList(statementId, objects);
         // 判断list数量是否等于1
