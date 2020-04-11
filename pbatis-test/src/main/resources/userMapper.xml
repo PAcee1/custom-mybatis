@@ -1,0 +1,12 @@
+<mapper namespace="user"> <!-- 命名空间，mapper的唯一标识 -->
+
+    <!--  sql唯一标识：namespace.id ,user.selectList -->
+    <select id="selectList" resultType="com.enbuys.pojo.User">
+        select * from user
+    </select>
+
+    <select id="selectOne" resultType="com.enbuys.pojo.User" paramterType="com.enbuys.pojo.User">
+        select * from user where id = #{id} and username = #{username}
+    </select>
+
+</mapper>
