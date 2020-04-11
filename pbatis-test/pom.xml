@@ -8,5 +8,12 @@
     <artifactId>pbatis-test</artifactId>
     <version>1.0-SNAPSHOT</version>
 
+    <dependencies>
+        <dependency>
+            <groupId>com.enbuys</groupId>
+            <artifactId>pbatis</artifactId>
+            <version>1.0-SNAPSHOT</version>
+        </dependency>
+    </dependencies>
 
 </project>

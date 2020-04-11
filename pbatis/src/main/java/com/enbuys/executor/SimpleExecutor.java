@@ -40,7 +40,7 @@ public class SimpleExecutor implements Executor {
         // 获取参数类型
         String paramterType = mappedStatement.getParamterType(); // 参数对象全路径
         // 通过路径，获取到这个对象
-        Class<?> clazz = Class.forName(paramterType);
+        Class<?> clazz = getClassByName(paramterType);
         // 获取参数名称集合
         List<ParameterMapping> parameterMappingList = boundSql.getParameterMappingList();
         // 循环，通过反射获取该名称的值，并设置到预处理对象中
@@ -64,7 +64,7 @@ public class SimpleExecutor implements Executor {
         // 获取结果类型
         String resultType = mappedStatement.getResultType(); // 结果对象的全路径
         // 通过路径获取结果对象Class
-        Class<?> resultClazz = Class.forName(resultType);
+        Class<?> resultClazz = getClassByName(resultType);
 
         // 保存结果
         List<Object> resultList = new ArrayList<>();
@@ -76,7 +76,7 @@ public class SimpleExecutor implements Executor {
 
             // 获取元数据，主要目的是获取字段名
             ResultSetMetaData metaData = resultSet.getMetaData();
-            for(int i = 1 ; i < metaData.getColumnCount() ; i++){ // 元数据下标从1开始
+            for(int i = 1 ; i <= metaData.getColumnCount() ; i++){ // 元数据下标从1开始
                 // 获取字段
                 String columnName = metaData.getColumnName(i);
                 // 获取值
@@ -96,6 +96,13 @@ public class SimpleExecutor implements Executor {
         }
 
         return (List<T>) resultList;
+    }
+
+    private Class<?> getClassByName(String paramterType) throws ClassNotFoundException {
+        if(paramterType != null){
+            return Class.forName(paramterType);
+        }
+        return null;
     }
 
     /**

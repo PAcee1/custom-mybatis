@@ -8,6 +8,7 @@ import org.dom4j.DocumentException;
 import org.dom4j.Element;
 import org.dom4j.io.SAXReader;
 
+import java.beans.PropertyVetoException;
 import java.io.InputStream;
 import java.util.List;
 import java.util.Properties;
@@ -33,7 +34,7 @@ public class XMLConfigBuilder {
      * @param is
      * @return
      */
-    public Configuration parseConfig(InputStream is) throws DocumentException {
+    public Configuration parseConfig(InputStream is) throws DocumentException, PropertyVetoException {
         /* 一、解析核心配置类 */
         // 使用dom4j解析配置
         Document document = new SAXReader().read(is);

@@ -4,6 +4,7 @@ import com.enbuys.config.XMLConfigBuilder;
 import com.enbuys.pojo.Configuration;
 import org.dom4j.DocumentException;
 
+import java.beans.PropertyVetoException;
 import java.io.InputStream;
 
 /**
@@ -20,7 +21,7 @@ public class SqlSessionFactoryBuilder {
      * @param is
      * @return
      */
-    public SqlSessionFactory build(InputStream is) throws DocumentException {
+    public SqlSessionFactory build(InputStream is) throws DocumentException, PropertyVetoException {
         // 一、使用dom4j解析配置文件
         // 将解析方法再次封装，封装到具体解析类中
         XMLConfigBuilder xmlConfigBuilder = new XMLConfigBuilder();
