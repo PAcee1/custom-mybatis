@@ -28,4 +28,12 @@ public interface SqlSession {
      * @return
      */
     <E> E selectOne(String statementId,Object... objects) throws Exception;
+
+    /**
+     * 获取代理对象
+     * @param clazz
+     * @param <T>
+     * @return
+     */
+    <T> T getMapper(Class<?> clazz);
 }

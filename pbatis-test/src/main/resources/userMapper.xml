@@ -1,4 +1,4 @@
-<mapper namespace="user"> <!-- 命名空间，mapper的唯一标识 -->
+<mapper namespace="com.enbuys.dao.IUserDao"> <!-- 命名空间，mapper的唯一标识 -->
 
     <!--  sql唯一标识：namespace.id ,user.selectList -->
     <select id="selectList" resultType="com.enbuys.pojo.User">

@@ -5,6 +5,9 @@ import com.enbuys.executor.SimpleExecutor;
 import com.enbuys.pojo.Configuration;
 import com.enbuys.pojo.MappedStatement;
 
+import java.lang.reflect.InvocationHandler;
+import java.lang.reflect.Method;
+import java.lang.reflect.Proxy;
 import java.util.List;
 
 /**
@@ -43,5 +46,37 @@ public class DefaultSqlSession implements SqlSession {
         }else {
             throw new RuntimeException("查询结果不存在或数量大于1");
         }
+    }
+
+    @Override
+    public <T> T getMapper(Class<?> clazz) {
+        // 使用JDK动态代理
+        Object proxyInstance = Proxy.newProxyInstance(this.getClass().getClassLoader(),
+            new Class[]{clazz}, new InvocationHandler() {
+                @Override
+                public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
+                    // 实际调用的还是SqlSession中的select方法，所以需要两个参数
+                    // 一、首先需要获取statementId = 全限定类名.方法名
+                    // 全限定类名
+                    String className = method.getDeclaringClass().getName();
+                    String methodName = method.getName();
+                    String statementId = className + "." + methodName;
+
+                    // 二、需要入参objects，就是args
+
+                    // 三、调用Select方法，这里我们需要判断使用哪个方法
+                    // 因为我们只是简单实现，所以这里我使用如果有参数执行selectOne，如果没有参数执行selectList
+                    // 在Mybatis中，对于这里的判断肯定更加严谨完善
+                    // 我们只是需要掌握它的思路，具体代码实现有兴趣可以进一步研究
+                    if(args != null){
+                        Object o = selectOne(statementId, args);
+                        return o;
+                    }else {
+                        List<Object> objects = selectList(statementId, args);
+                        return objects;
+                    }
+                }
+            });
+        return (T) proxyInstance;
     }
 }
